@@ -49,7 +49,7 @@ public class ShoppingCartController {
         //取得欲修改商品資訊
         Product getProduct = this.productService.getProductById(this.shoppingCartService
                 .getCartItemBySeq(CartId).getProduct().getProductId());
-        //判斷修改數量為0直接刪除此訂單
+        //購物車訂單數量為0直接刪除此訂單
         if (cartItem.getQuantity()<=0){
             return this.shoppingCartService.deleteItem(CartId);
 
