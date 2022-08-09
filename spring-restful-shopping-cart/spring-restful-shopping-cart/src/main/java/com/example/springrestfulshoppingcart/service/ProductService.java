@@ -21,14 +21,21 @@ public class ProductService {
     }
 
     public List<Product> getProducts() {
-
-        return this.productList;
+        List<Product> checkProductList=new ArrayList<>();
+        for (Product product:this.productList){
+            if (product.isState())
+                checkProductList.add(product);
+        }
+        return checkProductList;
     }
 
     public Product getProductById(int id) {
         for (Product product : this.productList) {
-            if (id == product.getProductId())
-                return product;
+            if (id == product.getProductId()){
+                if (product.isState())
+                    return product;
+            }
+
         }
         return null;
     }
