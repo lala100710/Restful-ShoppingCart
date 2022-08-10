@@ -1,0 +1,155 @@
+{
+	"info": {
+		"_postman_id": "4bfe25a9-b660-4e8a-a1d7-e2aec6b2a7f7",
+		"name": "ShoppingCart",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12047537"
+	},
+	"item": [
+		{
+			"name": "GetAllCartItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/shoppingCart/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"shoppingCart",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCartItemByCartId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/shoppingCart/:itemId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"shoppingCart",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "itemId",
+							"value": "20220834"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddCartItem",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quantity\":3\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/shoppingCart/addItem/:productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"shoppingCart",
+						"addItem",
+						":productId"
+					],
+					"variable": [
+						{
+							"key": "productId",
+							"value": "20221309"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCartItem",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"quantity\":10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/shoppingCart/updateItem/:itemId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"shoppingCart",
+						"updateItem",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "itemId",
+							"value": "20221142"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCartItem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/shoppingCart/deleteItem/:itemId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"shoppingCart",
+						"deleteItem",
+						":itemId"
+					],
+					"variable": [
+						{
+							"key": "itemId",
+							"value": "20221142"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
