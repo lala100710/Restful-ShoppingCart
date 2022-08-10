@@ -26,6 +26,7 @@ public class ProductController {
 
     @PostMapping("/addProduct")
     public Product addProduct(@RequestBody Product product) {
+        product.setProductId(product.generateId());
         return this.productService.addProduct(product);
     }
 

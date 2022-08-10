@@ -3,8 +3,6 @@ package com.example.springrestfulshoppingcart.service;
 import com.example.springrestfulshoppingcart.model.Product;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +12,15 @@ public class ProductService {
 
     public ProductService() {
         this.productList = new ArrayList<>();
-        Product product1 = new Product(1, "t-shirt", 100, "black", 250);
-        Product product2 = new Product(2, "pants", 150, "yellow", 100);
+        Product product1 = new Product("t-shirt", 100, "black", 250);
+        Product product2 = new Product("pants", 150, "yellow", 100);
         this.productList.add(product1);
         this.productList.add(product2);
     }
 
     public List<Product> getProducts() {
-        List<Product> checkProductList=new ArrayList<>();
-        for (Product product:this.productList){
+        List<Product> checkProductList = new ArrayList<>();
+        for (Product product : this.productList) {
             if (product.isState())
                 checkProductList.add(product);
         }
@@ -31,20 +29,15 @@ public class ProductService {
 
     public Product getProductById(int id) {
         for (Product product : this.productList) {
-            if (id == product.getProductId()){
+            if (id == product.getProductId()) {
                 if (product.isState())
                     return product;
             }
-
         }
         return null;
     }
 
     public Product addProduct(Product product) {
-        //自動產生商品編號
-        LocalDate localDate=LocalDate.now();
-        String date=localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
-        product.setProductId((int)(Math.random()*999)+Integer.parseInt(date));
         this.productList.add(product);
         return product;
     }
