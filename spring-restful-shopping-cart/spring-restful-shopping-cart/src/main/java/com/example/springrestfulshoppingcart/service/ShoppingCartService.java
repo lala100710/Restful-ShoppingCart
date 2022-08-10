@@ -3,8 +3,6 @@ package com.example.springrestfulshoppingcart.service;
 import com.example.springrestfulshoppingcart.model.CartItem;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,22 +14,19 @@ public class ShoppingCartService {
         this.cartItemList = new ArrayList<>();
     }
 
-    public List<CartItem> getCartItems() {
+    public List<CartItem> getItems() {
         return this.cartItemList;
     }
 
-    public CartItem addCartItem(CartItem cartItem) {
-        //自動產生訂單編號
-        LocalDate localDate=LocalDate.now();
-        String date=localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
-        cartItem.setCartId((int)(Math.random()*999)+Integer.parseInt(date));
+    public CartItem addItem(CartItem cartItem) {
+        cartItem.setItemId(cartItem.generateItemId());
         this.cartItemList.add(cartItem);
         return cartItem;
     }
 
-    public CartItem getCartItemBySeq(int seq) {
+    public CartItem getItemById(int id) {
         for (CartItem cartItem : this.cartItemList) {
-            if (seq == cartItem.getCartId()) {
+            if (id == cartItem.getItemId()) {
                 return cartItem;
             }
         }
@@ -40,7 +35,7 @@ public class ShoppingCartService {
 
     public CartItem updateItemQuantity(int seq, CartItem cartItem) {
         for (CartItem updatedCartItem : this.cartItemList) {
-            if (seq == updatedCartItem.getCartId()) {
+            if (seq == updatedCartItem.getItemId()) {
                 updatedCartItem.setQuantity(cartItem.getQuantity());
                 return updatedCartItem;
             }
@@ -50,7 +45,7 @@ public class ShoppingCartService {
 
     public CartItem deleteItem(int seq) {
         for (CartItem cartItem : this.cartItemList) {
-            if (seq == cartItem.getCartId()) {
+            if (seq == cartItem.getItemId()) {
                 this.cartItemList.remove(cartItem);
             }
             return cartItem;

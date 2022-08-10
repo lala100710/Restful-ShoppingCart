@@ -19,18 +19,18 @@ public class ShoppingCartController {
     private ProductService productService;
 
     @GetMapping()
-    public List<CartItem> getAllOrders() {
-        return this.shoppingCartService.getCartItems();
+    public List<CartItem> getAllItems() {
+        return this.shoppingCartService.getItems();
     }
 
-    @GetMapping("/{CartId}")
-    public CartItem getOrderBySeq(@PathVariable int CartId) {
-        return this.shoppingCartService.getCartItemBySeq(CartId);
+    @GetMapping("/{itemId}")
+    public CartItem getItemById(@PathVariable int itemId) {
+        return this.shoppingCartService.getItemById(itemId);
     }
 
 
-    @PostMapping("/addCartItem/{productId}")
-    public CartItem addCartItem(@RequestBody CartItem cartItem, @PathVariable int productId) {
+    @PostMapping("/addItem/{productId}")
+    public CartItem addItem(@RequestBody CartItem cartItem, @PathVariable int productId) {
 
         Product getProduct = this.productService.getProductById(productId);
         //判段新增到購物車的數量是否大於商品存貨數量
@@ -41,17 +41,17 @@ public class ShoppingCartController {
             getProduct.setQuantity(0);
         }
         cartItem.setProduct(getProduct);
-        return this.shoppingCartService.addCartItem(cartItem);
+        return this.shoppingCartService.addItem(cartItem);
     }
 
-    @RequestMapping(value = "/updateOrder/{CartId}",method={RequestMethod.DELETE,RequestMethod.PUT})
-    public CartItem updateOrder(@PathVariable int CartId,  @RequestBody CartItem cartItem) {
+    @RequestMapping(value = "/updateItem/{itemId}",method={RequestMethod.DELETE,RequestMethod.PUT})
+    public CartItem updateItem(@PathVariable int itemId, @RequestBody CartItem cartItem) {
         //取得欲修改商品資訊
         Product getProduct = this.productService.getProductById(this.shoppingCartService
-                .getCartItemBySeq(CartId).getProduct().getProductId());
+                .getItemById(itemId).getProduct().getProductId());
         //購物車訂單數量為0直接刪除此訂單
         if (cartItem.getQuantity()<=0){
-            return this.shoppingCartService.deleteItem(CartId);
+            return this.shoppingCartService.deleteItem(itemId);
 
         }else {
             //判段購物車的數量是否大於商品存貨數量
@@ -61,14 +61,14 @@ public class ShoppingCartController {
                 cartItem.setQuantity(getProduct.getQuantity());
                 getProduct.setQuantity(0);
             }
-            return this.shoppingCartService.updateItemQuantity(CartId, cartItem);
+            return this.shoppingCartService.updateItemQuantity(itemId, cartItem);
         }
 
     }
 
     //刪除訂單
-    @RequestMapping(value = "/deleteOrder/{CartId}",method = RequestMethod.DELETE)
-    public CartItem deleteOrder(@PathVariable int CartId) {
-        return this.shoppingCartService.deleteItem(CartId);
+    @RequestMapping(value = "/deleteItem/{itemId}",method = RequestMethod.DELETE)
+    public CartItem deleteItem(@PathVariable int itemId) {
+        return this.shoppingCartService.deleteItem(itemId);
     }
 }
